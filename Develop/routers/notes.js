@@ -13,8 +13,13 @@ notes.get("/api/notes", (req, res) => {
 });
 
 notes.post("/api/notes", (req,res) => {
-    const { title, text } = req.body;
-    
+    fs.readFile("./db/db.json", "utf8", (err,data) => {
+        if(err) {
+            console.error(err)
+        } else {
+            
+        }
+    })
 })
 
 module.exports = notes;
