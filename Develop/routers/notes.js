@@ -32,11 +32,25 @@ notes.post("/api/notes", (req,res) => {
     })
 })
 
-notes.delete("api/notes/:id", (req,res) => {
+notes.delete("/api/notes/:id", (req, res) => {
     const id = req.params.id;
     fs.readFile("./db/db.json", "utf8", (err,data) => {
-        const parsedData = JSON.parse(data);
-        
+        if(err) {
+            console.error(err)
+        } else {
+            let parsedData = JSON.parse(data);
+            parsedData.map((value,index) => {
+                if(value.id === id) {
+                    parsedData.splice(index, 1)
+                }
+            })
+            fs.writeFile("./db/db.json", JSON.stringify(parsedData, null, 4), (err) => {
+                err ? console.error(err) 
+                :res.json(parsedData)
+                ,console.info(`\nData written to ./db/db.json`)
+            }
+            );
+        }
     })
 })
 
