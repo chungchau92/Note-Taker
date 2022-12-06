@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-app.use("/", notes)
+app.use("/", notes);
 
 app.get("/notes", (req,res) => {
     res.sendFile(path.join(__dirname, "./public/notes.html"));
